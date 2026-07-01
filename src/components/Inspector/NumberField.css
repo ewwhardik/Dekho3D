@@ -1,0 +1,53 @@
+.num-field {
+  display: flex;
+  align-items: center;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  height: 30px;
+  flex: 1;
+  transition: border-color var(--dur-fast);
+}
+
+.num-field:hover {
+  border-color: var(--border-strong);
+}
+
+.num-field__label {
+  width: 20px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-2);
+  background: var(--bg-3);
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.num-field__value {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-0);
+  font-size: 12px;
+  text-align: left;
+  padding: 0 8px;
+  height: 100%;
+}
+
+.num-field__input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-0);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  padding: 0 8px;
+  height: 100%;
+  outline: none;
+}

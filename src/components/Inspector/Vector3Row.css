@@ -1,0 +1,16 @@
+.vec3-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vec3-row__title {
+  font-size: 11px;
+  color: var(--text-2);
+  font-weight: 500;
+}
+
+.vec3-row__fields {
+  display: flex;
+  gap: 6px;
+}

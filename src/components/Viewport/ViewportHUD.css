@@ -1,0 +1,50 @@
+.viewport-hud {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.viewport-hud__chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(19, 21, 25, 0.82);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 6px 12px;
+  font-size: 11px;
+  color: var(--text-1);
+  font-weight: 500;
+}
+
+.viewport-hud__chip--on {
+  color: var(--teal);
+  border-color: rgba(51, 219, 160, 0.35);
+}
+
+.viewport-hud__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: pulseGlow 2s ease-in-out infinite;
+}
+
+.viewport-hud__hint {
+  font-size: 11px;
+  color: var(--text-3);
+  margin-left: 6px;
+  white-space: nowrap;
+}
+
+@media (max-width: 980px) {
+  .viewport-hud__hint {
+    display: none;
+  }
+}

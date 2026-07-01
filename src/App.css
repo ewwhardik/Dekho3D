@@ -1,0 +1,46 @@
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+  background: var(--bg-0);
+  font-family: var(--font-body);
+}
+
+.app-shell__body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+.app-shell__left {
+  width: var(--left-w);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--bg-1);
+  border-right: 1px solid var(--border);
+}
+
+.app-shell__right {
+  width: var(--right-w);
+  flex-shrink: 0;
+  background: var(--bg-1);
+  border-left: 1px solid var(--border);
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.app-shell__center {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+}
+
+@media (max-width: 1100px) {
+  :root {
+    --left-w: 220px;
+    --right-w: 260px;
+  }
+}

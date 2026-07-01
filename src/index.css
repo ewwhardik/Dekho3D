@@ -1,0 +1,174 @@
+/* ==========================================================================
+   Dekho3D — Design tokens
+   ========================================================================== */
+:root {
+  /* Surfaces */
+  --bg-0: #0b0c0f;      /* app backdrop */
+  --bg-1: #131519;      /* panels */
+  --bg-2: #191c22;      /* raised panels / cards */
+  --bg-3: #21252d;      /* hover surfaces */
+  --bg-4: #2a2f39;      /* active surfaces */
+
+  /* Borders */
+  --border: #262a33;
+  --border-soft: #1d2027;
+  --border-strong: #363c48;
+
+  /* Text */
+  --text-0: #eef0f4;
+  --text-1: #b6bac4;
+  --text-2: #767c88;
+  --text-3: #4d525e;
+
+  /* Accent — electric violet, this app's signature colour */
+  --accent: #7c5cff;
+  --accent-hover: #9075ff;
+  --accent-soft: rgba(124, 92, 255, 0.14);
+  --accent-ring: rgba(124, 92, 255, 0.35);
+
+  /* Secondary accents */
+  --teal: #33dba0;
+  --teal-soft: rgba(51, 219, 160, 0.14);
+  --amber: #ffb648;
+  --danger: #ff5c72;
+  --danger-soft: rgba(255, 92, 114, 0.14);
+
+  /* Radii */
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 14px;
+  --r-xl: 20px;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+  --shadow-glow: 0 0 0 1px var(--accent-ring), 0 4px 16px rgba(124, 92, 255, 0.25);
+
+  /* Type */
+  --font-display: 'Space Grotesk', 'Inter', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', 'SFMono-Regular', monospace;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 120ms;
+  --dur-med: 220ms;
+  --dur-slow: 380ms;
+
+  /* Layout */
+  --topbar-h: 56px;
+  --left-w: 260px;
+  --right-w: 300px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg-0);
+  color: var(--text-0);
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+  user-select: none;
+}
+
+input, button, textarea, select {
+  font-family: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  background: var(--accent-soft);
+}
+
+/* Scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--text-3);
+}
+
+/* Focus ring — accessible + on-brand */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Reduced motion respect */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ==========================================================================
+   Shared utility classes
+   ========================================================================== */
+.mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.panel-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-2);
+}
+
+.divider {
+  height: 1px;
+  background: var(--border);
+  border: none;
+  margin: 0;
+}
+
+.fade-in {
+  animation: fadeIn var(--dur-med) var(--ease-out);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.pop-in {
+  animation: popIn var(--dur-slow) var(--ease-out);
+}
+@keyframes popIn {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
+}

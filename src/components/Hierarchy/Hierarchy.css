@@ -1,0 +1,130 @@
+.hierarchy {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+  padding: 16px 10px 12px 14px;
+}
+
+.hierarchy__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 6px;
+  margin-bottom: 10px;
+}
+
+.hierarchy__count {
+  font-size: 11px;
+  color: var(--text-2);
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 1px 8px;
+}
+
+.hierarchy__empty {
+  padding: 18px 8px;
+  color: var(--text-2);
+  text-align: center;
+  font-size: 12px;
+  border: 1px dashed var(--border);
+  border-radius: var(--r-md);
+  margin-right: 6px;
+}
+
+.hierarchy__empty-sub {
+  color: var(--text-3);
+  margin-top: 4px;
+}
+
+.hierarchy__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 6px 0 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hierarchy__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: var(--r-md);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast);
+}
+
+.hierarchy__item:hover {
+  background: var(--bg-2);
+}
+
+.hierarchy__item--selected {
+  background: var(--accent-soft);
+  border-color: var(--accent-ring);
+}
+
+.hierarchy__icon {
+  color: var(--text-2);
+  display: flex;
+  flex-shrink: 0;
+}
+
+.hierarchy__item--selected .hierarchy__icon {
+  color: var(--accent-hover);
+}
+
+.hierarchy__name {
+  flex: 1;
+  font-size: 12.5px;
+  color: var(--text-0);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hierarchy__rename-input {
+  flex: 1;
+  background: var(--bg-0);
+  border: 1px solid var(--accent-ring);
+  border-radius: 4px;
+  color: var(--text-0);
+  font-size: 12.5px;
+  padding: 2px 6px;
+}
+
+.hierarchy__swatch {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.hierarchy__action {
+  background: transparent;
+  border: none;
+  color: var(--text-3);
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  border-radius: 4px;
+  opacity: 0;
+  transition: opacity var(--dur-fast), color var(--dur-fast);
+}
+
+.hierarchy__item:hover .hierarchy__action {
+  opacity: 1;
+}
+
+.hierarchy__action:hover {
+  color: var(--text-0);
+}
+
+.hierarchy__action--danger:hover {
+  color: var(--danger);
+}
