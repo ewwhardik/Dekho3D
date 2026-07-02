@@ -9,6 +9,8 @@ builder at `/app`.
 
 ![Dekho3D](https://img.shields.io/badge/stack-React%20%2B%20Three.js-7c5cff)
 
+![Alt Text](./preview.png)
+
 ## Features
 
 - **Object library** — drag-and-drop or click-to-add primitives: cube, sphere,
