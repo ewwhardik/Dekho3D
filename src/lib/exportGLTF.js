@@ -11,11 +11,32 @@ export function exportSceneToGLTF(rootObject, { binary = true, fileName = 'dekho
       return;
     }
 
+    // Editor-only helpers (light selection gizmos, etc.) are tagged with
+    // userData.dekhoHelper so they render in the viewport but never end up
+    // baked into the exported file. GLTFExporter's `onlyVisible` flag does
+    // the filtering, so this just toggles them off for the duration of
+    // the export, then restores whatever they were before.
+    const helperNodes = [];
+    rootObject.traverse((node) => {
+      if (node.userData?.dekhoHelper) helperNodes.push(node);
+    });
+    const previousVisibility = helperNodes.map((n) => n.visible);
+    helperNodes.forEach((n) => {
+      n.visible = false;
+    });
+
+    function restoreHelpers() {
+      helperNodes.forEach((n, i) => {
+        n.visible = previousVisibility[i];
+      });
+    }
+
     const exporter = new GLTFExporter();
 
     exporter.parse(
       rootObject,
       (result) => {
+        restoreHelpers();
         try {
           if (binary) {
             const blob = new Blob([result], { type: 'application/octet-stream' });
@@ -30,7 +51,10 @@ export function exportSceneToGLTF(rootObject, { binary = true, fileName = 'dekho
           reject(err);
         }
       },
-      (error) => reject(error),
+      (error) => {
+        restoreHelpers();
+        reject(error);
+      },
       { binary, onlyVisible: true }
     );
   });

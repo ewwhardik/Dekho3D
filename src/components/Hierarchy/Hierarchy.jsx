@@ -5,7 +5,7 @@ import './Hierarchy.css';
 
 export function Hierarchy() {
   const objects = useEditorStore((s) => s.objects);
-  const selectedId = useEditorStore((s) => s.selectedId);
+  const selectedIds = useEditorStore((s) => s.selectedIds);
   const selectObject = useEditorStore((s) => s.selectObject);
   const toggleVisibility = useEditorStore((s) => s.toggleVisibility);
   const removeObject = useEditorStore((s) => s.removeObject);
@@ -43,8 +43,8 @@ export function Hierarchy() {
           {objects.map((obj) => (
             <li
               key={obj.id}
-              className={`hierarchy__item ${selectedId === obj.id ? 'hierarchy__item--selected' : ''}`}
-              onClick={() => selectObject(obj.id)}
+              className={`hierarchy__item ${selectedIds.includes(obj.id) ? 'hierarchy__item--selected' : ''}`}
+              onClick={(e) => selectObject(obj.id, { additive: e.shiftKey || e.ctrlKey || e.metaKey })}
             >
               <span className="hierarchy__icon">
                 <ShapeIcon type={obj.type} size={16} />

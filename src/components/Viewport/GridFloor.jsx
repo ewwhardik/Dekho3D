@@ -1,6 +1,6 @@
 import { Grid } from '@react-three/drei';
 
-export function GridFloor({ visible }) {
+export function GridFloor({ visible, theme }) {
   if (!visible) return null;
   return (
     <>
@@ -8,10 +8,10 @@ export function GridFloor({ visible }) {
         args={[10, 10]}
         cellSize={0.5}
         cellThickness={0.5}
-        cellColor="#2a2f3b"
+        cellColor={theme?.gridCell || '#2a2f3b'}
         sectionSize={5}
         sectionThickness={1}
-        sectionColor="#454b5c"
+        sectionColor={theme?.gridSection || '#454b5c'}
         fadeDistance={38}
         fadeStrength={1.2}
         followCamera={false}

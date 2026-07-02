@@ -11,10 +11,14 @@ export function useKeyboardShortcuts() {
     removeSelected,
     duplicateSelected,
     setTransformMode,
+    toggleTransformSpace,
     undo,
     redo,
     toggleSnap,
-    clearSelection
+    clearSelection,
+    selectAll,
+    requestFrame,
+    requestView
   } = useEditorStore();
 
   useEffect(() => {
@@ -43,6 +47,13 @@ export function useKeyboardShortcuts() {
         duplicateSelected();
         return;
       }
+      if (isMod && e.key.toLowerCase() === 'a') {
+        e.preventDefault();
+        selectAll();
+        return;
+      }
+      // Shift+A is reserved for the viewport's quick-add radial menu.
+      if (e.shiftKey && e.key.toLowerCase() === 'a') return;
 
       switch (e.key.toLowerCase()) {
         case 'delete':
@@ -63,8 +74,26 @@ export function useKeyboardShortcuts() {
         case 's':
           setTransformMode('scale');
           break;
+        case 'x':
+          toggleTransformSpace();
+          break;
         case 'g':
           toggleSnap();
+          break;
+        case 'f':
+          requestFrame();
+          break;
+        case '1':
+          requestView('front');
+          break;
+        case '3':
+          requestView('right');
+          break;
+        case '7':
+          requestView('top');
+          break;
+        case '0':
+          requestView('perspective');
           break;
         case 'escape':
           clearSelection();
@@ -76,5 +105,18 @@ export function useKeyboardShortcuts() {
 
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [selectedId, removeSelected, duplicateSelected, setTransformMode, undo, redo, toggleSnap, clearSelection]);
+  }, [
+    selectedId,
+    removeSelected,
+    duplicateSelected,
+    setTransformMode,
+    toggleTransformSpace,
+    undo,
+    redo,
+    toggleSnap,
+    clearSelection,
+    selectAll,
+    requestFrame,
+    requestView
+  ]);
 }

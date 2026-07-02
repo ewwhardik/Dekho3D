@@ -1,5 +1,6 @@
 import { useEditorStore } from '../../store/editorStore.js';
 import { IconButton } from '../common/IconButton.jsx';
+import { THEME_ORDER, THEMES } from '../../lib/themes.js';
 import {
   LogoMark,
   MoveIcon,
@@ -11,7 +12,10 @@ import {
   GridIcon,
   UndoIcon,
   RedoIcon,
-  DownloadIcon
+  DownloadIcon,
+  AxisIcon,
+  WireframeIcon,
+  PaletteIcon
 } from '../common/Icons.jsx';
 import './Toolbar.css';
 
@@ -19,11 +23,18 @@ export function Toolbar({ onExport, exporting }) {
   const {
     transformMode,
     setTransformMode,
+    transformSpace,
+    toggleTransformSpace,
+    wireframe,
+    toggleWireframe,
+    theme,
+    setTheme,
     snapEnabled,
     toggleSnap,
     showGrid,
     toggleGrid,
     selectedId,
+    selectedIds,
     duplicateSelected,
     removeSelected,
     undo,
@@ -31,6 +42,8 @@ export function Toolbar({ onExport, exporting }) {
     past,
     future
   } = useEditorStore();
+
+  const hasSelection = selectedIds.length > 0 || Boolean(selectedId);
 
   return (
     <header className="toolbar">
@@ -63,15 +76,22 @@ export function Toolbar({ onExport, exporting }) {
         >
           <ScaleIcon />
         </IconButton>
+        <IconButton
+          label={`Transform space: ${transformSpace === 'world' ? 'Global' : 'Local'} (X)`}
+          active={transformSpace === 'local'}
+          onClick={toggleTransformSpace}
+        >
+          <AxisIcon />
+        </IconButton>
       </div>
 
       <div className="toolbar__divider" />
 
       <div className="toolbar__group" role="group" aria-label="Object actions">
-        <IconButton label="Duplicate (Ctrl+D)" disabled={!selectedId} onClick={duplicateSelected}>
+        <IconButton label="Duplicate (Ctrl+D)" disabled={!hasSelection} onClick={duplicateSelected}>
           <DuplicateIcon />
         </IconButton>
-        <IconButton label="Delete (Del)" danger disabled={!selectedId} onClick={removeSelected}>
+        <IconButton label="Delete (Del)" danger disabled={!hasSelection} onClick={removeSelected}>
           <TrashIcon />
         </IconButton>
       </div>
@@ -85,6 +105,27 @@ export function Toolbar({ onExport, exporting }) {
         <IconButton label="Snap to grid (G)" active={snapEnabled} onClick={toggleSnap}>
           <MagnetIcon />
         </IconButton>
+        <IconButton label="Wireframe shading" active={wireframe} onClick={toggleWireframe}>
+          <WireframeIcon />
+        </IconButton>
+      </div>
+
+      <div className="toolbar__divider" />
+
+      <div className="toolbar__group toolbar__theme" role="group" aria-label="World theme">
+        <PaletteIcon size={14} className="toolbar__theme-icon" />
+        <select
+          className="toolbar__theme-select"
+          value={theme}
+          onChange={(e) => setTheme(e.target.value)}
+          title="World / lighting theme"
+        >
+          {THEME_ORDER.map((key) => (
+            <option key={key} value={key}>
+              {THEMES[key].label}
+            </option>
+          ))}
+        </select>
       </div>
 
       <div className="toolbar__divider" />

@@ -5,11 +5,15 @@ import { Lighting } from './Lighting.jsx';
 import { GridFloor } from './GridFloor.jsx';
 import { SceneObjects } from './SceneObjects.jsx';
 import { TransformGizmo } from './TransformGizmo.jsx';
+import { CameraRig } from './CameraRig.jsx';
+import { THEMES } from '../../lib/themes.js';
 
 export function SceneContent({ exportGroupRef }) {
   const objects = useEditorStore((s) => s.objects);
   const selectedId = useEditorStore((s) => s.selectedId);
+  const selectedIds = useEditorStore((s) => s.selectedIds);
   const showGrid = useEditorStore((s) => s.showGrid);
+  const theme = THEMES[useEditorStore((s) => s.theme)] || THEMES.studio;
 
   const refsMap = useRef(new Map());
   const orbitControlsRef = useRef();
@@ -18,19 +22,25 @@ export function SceneContent({ exportGroupRef }) {
 
   return (
     <>
-      <color attach="background" args={['#0b0c0f']} />
-      <fog attach="fog" args={['#0b0c0f', 22, 48]} />
+      <color attach="background" args={[theme.bg]} />
+      <fog attach="fog" args={theme.fog} />
 
-      <Lighting />
-      <GridFloor visible={showGrid} />
+      <Lighting theme={theme} />
+      <GridFloor visible={showGrid} theme={theme} />
 
       <group ref={exportGroupRef}>
-        <SceneObjects objects={objects} selectedId={selectedId} refsMap={refsMap} />
+        <SceneObjects objects={objects} selectedIds={selectedIds} refsMap={refsMap} />
       </group>
 
       {selectedObject3D && (
-        <TransformGizmo target={selectedObject3D} orbitControlsRef={orbitControlsRef} />
+        <TransformGizmo
+          target={selectedObject3D}
+          orbitControlsRef={orbitControlsRef}
+          selectedIds={selectedIds}
+        />
       )}
+
+      <CameraRig orbitControlsRef={orbitControlsRef} refsMap={refsMap} />
 
       <OrbitControls
         ref={orbitControlsRef}

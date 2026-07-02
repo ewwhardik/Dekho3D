@@ -16,6 +16,14 @@ export function GeometryFor({ type }) {
       return <torusGeometry args={[0.4, 0.16, 20, 48]} />;
     case 'plane':
       return <planeGeometry args={[1, 1]} />;
+    case 'capsule':
+      return <capsuleGeometry args={[0.35, 0.6, 6, 16]} />;
+    case 'icosphere':
+      return <icosahedronGeometry args={[0.55, 1]} />;
+    case 'torusKnot':
+      return <torusKnotGeometry args={[0.35, 0.12, 100, 16]} />;
+    case 'tetrahedron':
+      return <tetrahedronGeometry args={[0.65, 0]} />;
     default:
       return <boxGeometry args={[1, 1, 1]} />;
   }

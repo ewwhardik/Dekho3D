@@ -150,6 +150,64 @@ export function PlusIcon({ size = 14, className }) {
   );
 }
 
+export function FrameIcon({ size = 16, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M3 8V4h4M17 4h4v4M21 16v4h-4M7 20H3v-4" />
+      <circle cx="12" cy="12" r="3.2" />
+    </svg>
+  );
+}
+
+export function AxisIcon({ size = 16, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 3v18M4 8l8-5 8 5M4 8v9l8 5M20 8v9l-8 5" />
+    </svg>
+  );
+}
+
+export function WireframeIcon({ size = 16, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3z" />
+      <path d="M12 3v18M4 7.5l8 4.5 8-4.5M4 16.5l8-4.5 8 4.5M4 7.5v9M20 7.5v9" />
+    </svg>
+  );
+}
+
+export function PaletteIcon({ size = 16, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 3a9 9 0 1 0 0 18c1.4 0 2-.8 2-1.8 0-.5-.2-.9-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1 .8-1.8 1.8-1.8H16a5 5 0 0 0 5-5c0-3.9-4-6.8-9-6.8z" />
+      <circle cx="7.3" cy="10.5" r="1.15" fill="currentColor" stroke="none" />
+      <circle cx="9.8" cy="6.8" r="1.15" fill="currentColor" stroke="none" />
+      <circle cx="14.6" cy="6.8" r="1.15" fill="currentColor" stroke="none" />
+      <circle cx="17" cy="10.5" r="1.15" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
+
+export function AlignIcon({ size = 14, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 2v20" />
+      <rect x="5" y="6" width="4" height="4" rx="1" />
+      <rect x="15" y="14" width="4" height="4" rx="1" />
+    </svg>
+  );
+}
+
+export function DistributeIcon({ size = 14, className }) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="3" y="9" width="4" height="6" rx="1" />
+      <rect x="10" y="6" width="4" height="12" rx="1" />
+      <rect x="17" y="9" width="4" height="6" rx="1" />
+    </svg>
+  );
+}
+
 export function LogoMark({ size = 22, className }) {
   return (
     <svg width={size} height={size} viewBox="0 0 24 24" className={className}>
@@ -206,6 +264,57 @@ export function ShapeIcon({ type, size = 30, className }) {
       return (
         <svg {...props} className={className}>
           <path d="M3 15l5-5h13l-5 5H3z" />
+        </svg>
+      );
+    case 'capsule':
+      return (
+        <svg {...props} className={className}>
+          <path d="M8 3.5a4 4 0 0 1 8 0v17a4 4 0 0 1-8 0v-17z" />
+          <path d="M8 7.5h8M8 16.5h8" opacity="0.6" />
+        </svg>
+      );
+    case 'icosphere':
+      return (
+        <svg {...props} className={className}>
+          <path d="M12 2.5l8 5v9l-8 5-8-5v-9l8-5z" />
+          <path d="M12 2.5v19M4 7.5l8 4.5 8-4.5M4 16.5l8-4.5 8 4.5" opacity="0.6" />
+        </svg>
+      );
+    case 'torusKnot':
+      return (
+        <svg {...props} className={className}>
+          <path d="M12 3c4 0 6 2.5 6 5.5S15 13 12 13s-5-1.5-5-4 2-4 5-4 6 2 6 5.5-3 6-6 6-7-2.7-7-6.3" />
+        </svg>
+      );
+    case 'tetrahedron':
+      return (
+        <svg {...props} className={className}>
+          <path d="M12 3l8.5 16H3.5L12 3z" />
+          <path d="M12 3l-3 16M12 3l3 16M3.5 19l8.5-6 8.5 6" opacity="0.6" />
+        </svg>
+      );
+    case 'pointLight':
+      return (
+        <svg {...props} className={className}>
+          <circle cx="12" cy="11" r="5.5" />
+          <path d="M9.5 18.5h5M10 21h4" />
+          <path d="M12 2v2M4 5l1.5 1.5M20 5l-1.5 1.5M2.5 11h2M19.5 11h2" opacity="0.7" />
+        </svg>
+      );
+    case 'spotLight':
+      return (
+        <svg {...props} className={className}>
+          <path d="M9 3h6l1.5 5h-9L9 3z" />
+          <path d="M7.5 8l-3 13h15l-3-13" />
+          <path d="M12 8v6" opacity="0.6" />
+        </svg>
+      );
+    case 'directionalLight':
+      return (
+        <svg {...props} className={className}>
+          <circle cx="12" cy="9" r="4" />
+          <path d="M12 1.5v2M5 4.5l1.4 1.4M19 4.5l-1.4 1.4M3 9h2M19 9h2" opacity="0.7" />
+          <path d="M8 17l8-6M8 20l10-7.5M8 14l5-3.7" opacity="0.55" />
         </svg>
       );
     default:

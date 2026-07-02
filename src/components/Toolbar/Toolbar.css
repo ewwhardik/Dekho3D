@@ -9,6 +9,9 @@
   border-bottom: 1px solid var(--border);
   position: relative;
   z-index: 20;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
 }
 
 .toolbar__brand {
@@ -72,4 +75,36 @@
 .toolbar__export:disabled {
   opacity: 0.6;
   cursor: default;
+}
+
+.toolbar__theme {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.toolbar__theme-icon {
+  color: var(--text-2);
+  flex-shrink: 0;
+}
+
+.toolbar__theme-select {
+  height: 30px;
+  background: var(--bg-2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  color: var(--text-1);
+  font-size: 12px;
+  font-family: var(--font-body);
+  padding: 0 6px;
+  cursor: pointer;
+  transition: border-color var(--dur-fast), color var(--dur-fast);
+}
+
+.toolbar__theme-select:hover,
+.toolbar__theme-select:focus {
+  border-color: var(--accent-ring);
+  color: var(--text-0);
+  outline: none;
 }

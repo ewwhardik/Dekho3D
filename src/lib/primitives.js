@@ -10,7 +10,11 @@ export const PRIMITIVE_TYPES = {
   cone: 'cone',
   cylinder: 'cylinder',
   torus: 'torus',
-  plane: 'plane'
+  plane: 'plane',
+  capsule: 'capsule',
+  icosphere: 'icosphere',
+  torusKnot: 'torusKnot',
+  tetrahedron: 'tetrahedron'
 };
 
 export const PRIMITIVE_LIST = [
@@ -55,6 +59,34 @@ export const PRIMITIVE_LIST = [
     defaultScale: [2, 2, 1],
     defaultPosition: [0, 0.001, 0],
     defaultRotation: [-Math.PI / 2, 0, 0]
+  },
+  {
+    type: PRIMITIVE_TYPES.capsule,
+    label: 'Capsule',
+    defaultScale: [1, 1, 1],
+    defaultPosition: [0, 0.75, 0],
+    defaultRotation: [0, 0, 0]
+  },
+  {
+    type: PRIMITIVE_TYPES.icosphere,
+    label: 'Ico Sphere',
+    defaultScale: [1, 1, 1],
+    defaultPosition: [0, 0.5, 0],
+    defaultRotation: [0, 0, 0]
+  },
+  {
+    type: PRIMITIVE_TYPES.torusKnot,
+    label: 'Torus Knot',
+    defaultScale: [1, 1, 1],
+    defaultPosition: [0, 0.6, 0],
+    defaultRotation: [0, 0, 0]
+  },
+  {
+    type: PRIMITIVE_TYPES.tetrahedron,
+    label: 'Tetrahedron',
+    defaultScale: [1, 1, 1],
+    defaultPosition: [0, 0.5, 0],
+    defaultRotation: [0, 0, 0]
   }
 ];
 
@@ -78,6 +110,7 @@ export function createObjectRecord({ type, id, name, position, colorIndex = 0 })
   return {
     id,
     type,
+    category: 'mesh',
     name: name || def.label,
     position: position || [...def.defaultPosition],
     rotation: [...def.defaultRotation],
@@ -85,6 +118,9 @@ export function createObjectRecord({ type, id, name, position, colorIndex = 0 })
     color: pickDefaultColor(colorIndex),
     metalness: 0.15,
     roughness: 0.55,
+    emissive: '#000000',
+    emissiveIntensity: 0,
+    opacity: 1,
     visible: true,
     castShadow: true
   };

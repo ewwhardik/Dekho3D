@@ -1,11 +1,12 @@
-export function Lighting() {
+export function Lighting({ theme }) {
   return (
     <>
-      <ambientLight intensity={0.55} />
-      <hemisphereLight args={['#7c8cff', '#0b0c0f', 0.35]} />
+      <ambientLight intensity={theme.ambient} />
+      <hemisphereLight args={theme.hemi} />
       <directionalLight
         position={[8, 12, 6]}
-        intensity={1.4}
+        intensity={theme.dirIntensity}
+        color={theme.dirColor}
         castShadow
         shadow-mapSize-width={2048}
         shadow-mapSize-height={2048}
@@ -17,7 +18,7 @@ export function Lighting() {
         shadow-camera-bottom={-15}
         shadow-bias={-0.0005}
       />
-      <directionalLight position={[-6, 4, -6]} intensity={0.3} color="#7c5cff" />
+      <directionalLight position={[-6, 4, -6]} intensity={theme.rimIntensity} color={theme.rimColor} />
     </>
   );
 }

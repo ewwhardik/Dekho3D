@@ -3,17 +3,36 @@
 Dekho3D is a browser-based 3D scene builder. Drag primitives onto an infinite
 grid, move/rotate/scale them with on-screen gizmos, tweak color and material
 in a live inspector, and export the result as a `.glb` file — all in a dark,
-distraction-free interface that runs entirely in your browser.
+distraction-free interface that runs entirely in your browser. It now also
+ships with a small marketing landing page at `/` that leads into the actual
+builder at `/app`.
 
 ![Dekho3D](https://img.shields.io/badge/stack-React%20%2B%20Three.js-7c5cff)
 
 ## Features
 
 - **Object library** — drag-and-drop or click-to-add primitives: cube, sphere,
-  cone, cylinder, torus, plane
+  cone, cylinder, torus, plane, capsule, ico sphere, torus knot, tetrahedron
+- **Quick-add radial menu** — hover the viewport and hit `Shift+A` to drop a
+  new shape right under the cursor, Blender-style
+- **Multi-select** — shift/ctrl-click objects in the viewport or hierarchy to
+  build a selection; `Ctrl+A` selects everything
+- **Group move** — drag the gizmo on the active object and every other
+  selected object follows along with the same delta
+- **Align & distribute** — a Figma-style panel appears in the Inspector
+  whenever 2+ objects are selected: align centers on X/Y/Z, distribute evenly
 - **Selection & transform** — move, rotate, and scale with interactive 3D
-  gizmos, plus a numeric inspector for exact values
-- **Duplicate & delete** — via toolbar buttons or keyboard shortcuts
+  gizmos, a **local/world space toggle** (`X`), plus a numeric inspector for
+  exact values
+- **Camera tools** — numpad-style view presets (Front/Right/Top/Perspective)
+  and **Frame Selected** (`F`), all smoothly animated
+- **World themes** — Studio / Sunset / Night / Void lighting + background
+  presets, switchable from the toolbar
+- **Wireframe shading toggle**
+- **Material presets** — Matte, Plastic, Glossy, Metal, Rubber, Chrome
+  one-click material shortcuts in the Inspector
+- **Duplicate & delete** — via toolbar buttons or keyboard shortcuts, works
+  across a multi-selection too
 - **Snap to grid** — toggleable, with adjustable translate/rotate/scale steps
 - **Hierarchy panel** — see every object in the scene, rename, hide, or delete
 - **Inspector panel** — position, rotation, scale, color, metalness, roughness
@@ -24,17 +43,23 @@ distraction-free interface that runs entirely in your browser.
 
 ## Keyboard shortcuts
 
-| Key                 | Action              |
-|----------------------|--------------------|
-| `W`                  | Move tool          |
-| `E`                  | Rotate tool        |
-| `S`                  | Scale tool         |
-| `G`                  | Toggle snap to grid|
-| `Ctrl` + `D`         | Duplicate selected |
-| `Delete` / `Backspace` | Delete selected  |
-| `Ctrl` + `Z`         | Undo               |
-| `Ctrl` + `Shift` + `Z` | Redo             |
-| `Esc`                | Deselect           |
+| Key                    | Action                              |
+|-------------------------|-------------------------------------|
+| `W`                     | Move tool                           |
+| `E`                     | Rotate tool                         |
+| `S`                     | Scale tool                          |
+| `X`                     | Toggle local/world transform space  |
+| `G`                     | Toggle snap to grid                 |
+| `F`                     | Frame selected (or whole scene)     |
+| `1` / `3` / `7` / `0`   | Front / Right / Top / Perspective view |
+| `Shift` + `A` (in viewport) | Quick-add shape menu at cursor  |
+| `Shift`/`Ctrl` + click  | Add object to selection             |
+| `Ctrl` + `A`            | Select all                          |
+| `Ctrl` + `D`            | Duplicate selected                  |
+| `Delete` / `Backspace`  | Delete selected                     |
+| `Ctrl` + `Z`            | Undo                                |
+| `Ctrl` + `Shift` + `Z`  | Redo                                |
+| `Esc`                   | Deselect                            |
 
 Left-drag to orbit the camera, scroll to zoom, right-drag to pan.
 
@@ -66,6 +91,22 @@ npm -v
 You should see version numbers printed (e.g. `v20.11.0` and `10.2.4`). If you
 see an error instead, restart your computer and try again — Windows
 sometimes needs a restart to pick up the new `PATH` entry.
+
+### 2. Get the project files
+
+If you received this project as a `.zip` file:
+
+1. Right-click the `dekho3d.zip` file
+2. Choose **Extract All…**
+3. Pick a simple destination like `C:\Users\<you>\Documents\dekho3d`
+4. Click **Extract**
+
+If you're cloning from Git instead, open Command Prompt and run:
+
+```bat
+git clone <repository-url>
+cd dekho3d
+```
 
 ### 3. Install dependencies
 
@@ -135,24 +176,28 @@ dekho3d/
 ├── package.json                Dependencies and npm scripts
 ├── vite.config.js              Build tool configuration
 └── src/
-    ├── main.jsx                 React root
-    ├── App.jsx                  Top-level layout + export wiring
+    ├── main.jsx                 React root — routes "/" to Landing, "/app" to the builder
+    ├── App.jsx                  Builder top-level layout + export wiring
     ├── App.css / index.css       Layout + global design tokens
+    ├── pages/
+    │   └── Landing/               Marketing landing page + tube-cursor hero
     ├── store/
-    │   └── editorStore.js        Zustand store: objects, selection, undo/redo
+    │   └── editorStore.js        Zustand store: objects, selection, undo/redo, tools
     ├── lib/
     │   ├── primitives.js         Primitive metadata + default object factory
     │   ├── snapping.js           Grid/rotation/scale snapping helpers
+    │   ├── themes.js             World/lighting presets
+    │   ├── viewPresets.js        Numpad-style camera view presets
     │   ├── exportGLTF.js         GLTF/GLB export + download
     │   └── idGen.js              Unique id generator
     ├── hooks/
     │   └── useKeyboardShortcuts.js
     └── components/
-        ├── Toolbar/               Top toolbar (tools, history, export)
+        ├── Toolbar/               Top toolbar (tools, history, theme, export)
         ├── ObjectLibrary/         Draggable primitive cards
-        ├── Hierarchy/             Scene object list
-        ├── Inspector/             Transform + material editor
-        ├── Viewport/              R3F Canvas, lighting, grid, gizmo
+        ├── Hierarchy/             Scene object list (multi-select aware)
+        ├── Inspector/             Transform + material editor + align panel
+        ├── Viewport/              R3F Canvas, lighting, grid, gizmo, camera rig
         └── common/                Icons, buttons, toasts
 ```
 

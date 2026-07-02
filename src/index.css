@@ -68,7 +68,6 @@
 }
 
 html, body, #root {
-  height: 100%;
   margin: 0;
 }
 
@@ -79,8 +78,28 @@ body {
   font-size: 13px;
   line-height: 1.45;
   -webkit-font-smoothing: antialiased;
+}
+
+/* The Studio (/app) is a fixed-viewport editor — it owns its own internal
+   scroll areas and the page itself must never scroll. The Landing page is
+   a normal marketing page and needs the page to scroll like any website. */
+body.is-studio,
+body.is-studio #root {
+  height: 100%;
   overflow: hidden;
   user-select: none;
+}
+
+body.is-landing {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body.is-landing {
+    scroll-behavior: auto;
+  }
 }
 
 input, button, textarea, select {
